@@ -1,4 +1,4 @@
-import './Directory.scss'
+import './DirectoryStyle.scss'
 import CategoryItem from '../categoryItem/categoryItem';
 
 const Directory = ({categories}) => {
