@@ -3,7 +3,8 @@ import { getAuth,
      signInWithRedirect, 
      signInWithPopup, 
      GoogleAuthProvider,
-     createUserWithEmailAndPassword 
+     createUserWithEmailAndPassword,
+     signInWithEmailAndPassword
 } from 'firebase/auth';
 
 import {
@@ -24,18 +25,36 @@ const firebaseConfig = {
   
   const firebaseapp = initializeApp(firebaseConfig);
 
+  //First, create the Google provider
+
   const googleprovider = new GoogleAuthProvider();
+
+  //setCustomParameters is gonna tell the API how to behave 
+  //So in this case is gonna force the user the choose an account
+
   googleprovider.setCustomParameters({
     prompt: "select_account"
   });
 
+  //Create and export the auth using getAuth()
+
   export const auth = getAuth();
+
+  //Create and export signInWithGooglePopup
+  //You need to pass it the auth and the provider as parameters
+  //After this, go to firebase web site and in Authentication
+  //Enable Google in Sign In methods 
 
   export const signInWithGooglePopup = () => signInWithPopup(auth, googleprovider);
 
   export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleprovider);
 
+  //Create the db using getFirestore()
+
   export const db = getFirestore();
+
+  //Create the createUserDocumentFromAuth method that receives
+  //userAuthentication data and store it inside of firestore (the database)
 
   export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
     
@@ -63,7 +82,8 @@ const firebaseConfig = {
                 ...additionalInformation
             });
         } catch (error) {
-            console.log('error creating user', error.message);
+            alert('error creating user');
+            console.log(error.message);
         }
     }
     //if user data exists
@@ -77,4 +97,9 @@ const firebaseConfig = {
   export const createAuthUserWithEmailAndPassword = async(email, password) => {
     if(!email || !password) return;
     return await createUserWithEmailAndPassword(auth, email, password);
+  }
+
+  export const signInAuthUserWithEmailAndPassword = async(email, password) => {
+    if(!email || !password) return;
+    return await signInWithEmailAndPassword(auth, email, password);
   }
