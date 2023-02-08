@@ -4,7 +4,9 @@ import { getAuth,
      signInWithPopup, 
      GoogleAuthProvider,
      createUserWithEmailAndPassword,
-     signInWithEmailAndPassword
+     signInWithEmailAndPassword,
+     signOut,
+     onAuthStateChanged
 } from 'firebase/auth';
 
 import {
@@ -103,3 +105,11 @@ const firebaseConfig = {
     if(!email || !password) return;
     return await signInWithEmailAndPassword(auth, email, password);
   }
+
+  export const signOutUser = async() => await signOut(auth);
+
+  //This function keeps track on the AuthState, that means that is gonna now if
+  //the user signs in or signs out
+
+  export const onAuthStateChangedListener = (callback) => 
+  onAuthStateChanged(auth, callback);
