@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import FormInput from "../formInput/FormInput";
-import Button from "../Button/Button";
+import Button, { ButtonTypeClasses } from "../Button/Button";
 
 import { createAuthUserWithEmailAndPassword, 
          createUserDocumentFromAuth, 
@@ -9,7 +9,7 @@ import { createAuthUserWithEmailAndPassword,
          signInAuthUserWithEmailAndPassword 
 } from "../../utils/firebase/firebase";
 
-import './SignIn.scss';
+import { SignUpContainer, Buttons, HeadTitle } from './SignInStyle.jsx';
 
 const defaultFormFields = {
     email: '',
@@ -68,8 +68,8 @@ const SignIn = () => {
 // The inputs have to match the properties in the object DefaultFormFields
 
     return (
-    <div className="sign-up-container">
-      <h2>Already have an account?</h2>
+    <SignUpContainer>
+      <HeadTitle>Already have an account?</HeadTitle>
       <span>Sign In with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput 
@@ -89,15 +89,19 @@ const SignIn = () => {
             name="password" 
             value={password}
         />
-        <div className="buttons-container">
+        <Buttons>
         <Button type="submit">Sign In</Button>
-        <Button type="button" buttonType='google'
-                onClick={signInWithGoogle}>
-                Sign in with Google
+        
+        <Button 
+            type="button" 
+            buttonType={ButtonTypeClasses.google}
+            onClick={signInWithGoogle}
+        >
+        Sign in with Google
         </Button>
-        </div>
+        </Buttons>
       </form>
-    </div>
+    </SignUpContainer>
   )
 }
 
