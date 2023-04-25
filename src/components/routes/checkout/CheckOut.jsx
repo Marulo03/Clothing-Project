@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { selectCartItems, selectCartTotal } from '../../../store/cart/CartSelector';
 
+import PaymentForm from '../../payment-form/PaymentForm';
 import CheckOutItem from '../../checkout-item/CheckOutItem';
 import {CheckoutContainer, 
         CheckoutHeader, 
@@ -40,6 +41,7 @@ const CheckOut = () => {
                     )
                 }
             <Total>Total: ${cartTotal}</Total>
+            <PaymentForm />
         </CheckoutContainer>
     )
 }
